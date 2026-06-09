@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Default is Dark Theme (Sleek Deep Charcoal) */
+  --cream-50: 20, 20, 20;
+  --cream-100: 10, 10, 10;
+  --cream-200: 38, 38, 38;
+
+  --ink-900: 245, 245, 245;
+  --ink-800: 212, 212, 212;
+  --ink-600: 163, 163, 163;
+  --ink-400: 115, 115, 115;
+
+  --card-bg-glass: rgba(20, 20, 20, 0.82);
+  --modal-bg: #141414;
+  --modal-footer-bg: rgba(28, 28, 28, 0.95);
+
+  /* Default Citrus Accent Colors (Orange) */
+  --citrus-400: 244, 160, 36;
+  --citrus-500: 232, 137, 10;
+  --citrus-600: 196, 114, 8;
+}
+
+html.light {
+  /* Light Theme Override */
+  --cream-50: 253, 251, 247;
+  --cream-100: 250, 246, 237;
+  --cream-200: 243, 234, 213;
+
+  --ink-900: 26, 18, 8;
+  --ink-800: 46, 33, 18;
+  --ink-600: 92, 74, 42;
+  --ink-400: 138, 115, 85;
+
+  --card-bg-glass: rgba(255, 255, 255, 0.82);
+  --modal-bg: #FAF6ED;
+  --modal-footer-bg: rgba(250, 246, 237, 0.95);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgba(var(--cream-100), 1);
+  color: rgba(var(--ink-900), 1);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom cursor - only for desktop/mouse devices */
+@media (pointer: fine) {
+  body { cursor: none; }
+  a, button { cursor: none; }
+}
+
+/* Restore normal cursor when code viewer is open */
+html.code-viewer-open,
+html.code-viewer-open body {
+  cursor: default !important;
+}
+html.code-viewer-open a,
+html.code-viewer-open button,
+html.code-viewer-open [role="button"],
+html.code-viewer-open a *,
+html.code-viewer-open button *,
+html.code-viewer-open [role="button"] * {
+  cursor: pointer !important;
+}
+
+
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(var(--cream-200), 1); }
+::-webkit-scrollbar-thumb { background: rgba(var(--ink-400), 1); border-radius: 3px; }
+
+/* Selection */
+::selection {
+  background: #F4A024;
+  color: #1A1208;
+}
+
+@layer utilities {
+  .font-display { font-family: 'Playfair Display', serif; }
+  .font-body { font-family: 'DM Sans', sans-serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+  .text-balance { text-wrap: balance; }
+
+  .noise-bg {
+    position: relative;
+  }
+  .noise-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* Custom rich text editor styling inside Experience list items */
+.prose-experience {
+  word-break: break-word;
+}
+.prose-experience ul {
+  list-style-type: disc !important;
+  padding-left: 1.25rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+.prose-experience ol {
+  list-style-type: decimal !important;
+  padding-left: 1.25rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+.prose-experience li {
+  margin-bottom: 0.25rem !important;
+  list-style: inherit !important;
+}
+.prose-experience strong, .prose-experience b {
+  font-weight: 700 !important;
+  color: rgb(var(--ink-900)) !important;
+}
+.prose-experience em, .prose-experience i {
+  font-style: italic !important;
+}
+.prose-experience u {
+  text-decoration: underline !important;
+}
+.prose-experience a {
+  color: rgb(var(--citrus-500)) !important;
+  text-decoration: underline !important;
+  transition: opacity 0.2s ease;
+}
+.prose-experience a:hover {
+  opacity: 0.8;
+}
+.prose-experience code {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.85em !important;
+  background-color: rgba(var(--cream-200), 0.5) !important;
+  color: rgb(var(--citrus-500)) !important;
+  padding: 0.125rem 0.35rem !important;
+  border-radius: 0.375rem !important;
+  display: inline-block !important;
+}
+
