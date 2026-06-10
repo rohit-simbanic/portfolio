@@ -179,132 +179,138 @@ export default function PayMeButton() {
                 style={{ boxShadow: "0 40px 80px rgba(26,18,8,0.4)" }}
               >
                 {/* Header */}
-          <div className="bg-ink-900 px-6 pt-6 pb-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <h2 className="font-display text-2xl font-bold text-cream-50">
-                  Support {PAYEE_NAME.split(" ")[0]} ₹
-                </h2>
-                <p className="font-mono text-xs text-ink-400 mt-1">Instant UPI · Zero fees · Secure</p>
-              </div>
-              <button
-                onClick={() => setOpen(false)}
-                className="w-8 h-8 rounded-full bg-ink-800 hover:bg-citrus-400 hover:text-ink-900 text-cream-50 flex items-center justify-center text-sm transition-colors"
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-
-          {/* Body */}
-          <div className="px-4 py-5 sm:px-6 sm:py-5 space-y-4 max-h-[75vh] overflow-y-auto">
-
-            {/* UPI ID */}
-            <div className="bg-ink-900 rounded-2xl px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-citrus-400 flex items-center justify-center font-display font-bold text-sm text-ink-900 flex-shrink-0">
-                  {PAYEE_NAME.split(" ").map((n) => n[0]).join("").slice(0, 2)}
-                </div>
-                <div>
-                  <p className="font-mono text-[10px] text-ink-400 uppercase tracking-wider">UPI ID</p>
-                  <p className="text-cream-50 font-semibold text-sm mt-0.5">{UPI_ID}</p>
-                </div>
-              </div>
-              <button
-                onClick={copyUPI}
-                className="font-mono text-[11px] bg-ink-800 hover:bg-citrus-400 hover:text-ink-900 text-citrus-400 px-3 py-1.5 rounded-lg transition-colors"
-              >
-                Copy
-              </button>
-            </div>
-
-            {/* Amount presets */}
-            <div>
-              <p className="font-mono text-[11px] text-ink-400 uppercase tracking-widest mb-2">Choose amount</p>
-              <div className="flex flex-wrap gap-2 mb-3">
-                {PRESETS.map((p) => (
-                  <button
-                    key={p}
-                    onClick={() => handlePreset(p)}
-                    className={clsx(
-                      "px-3.5 py-1.5 rounded-xl text-sm font-semibold border-2 transition-all",
-                      preset === p
-                        ? "bg-citrus-400 border-citrus-400 text-ink-900"
-                        : "bg-cream-50 border-cream-200 text-ink-600 hover:border-citrus-400"
-                    )}
-                  >
-                    ₹{p}
-                  </button>
-                ))}
-              </div>
-              {/* Custom amount */}
-              <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xl font-bold text-ink-900">₹</span>
-                <input
-                  type="number"
-                  min="1"
-                  value={amount}
-                  onChange={(e) => { setAmount(e.target.value); setPreset(null); }}
-                  placeholder="Enter custom amount"
-                  className="w-full bg-cream-50 border-2 border-cream-200 focus:border-citrus-400 rounded-xl pl-8 pr-4 py-3 text-lg font-bold text-ink-900 outline-none transition-colors"
-                />
-              </div>
-            </div>
-
-            {/* Note */}
-            <input
-              type="text"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder="Add a note (optional)"
-              className="w-full bg-cream-50 border border-cream-200 focus:border-citrus-400 rounded-xl px-4 py-2.5 text-sm text-ink-900 outline-none transition-colors"
-            />
-
-            {/* UPI Apps */}
-            <div>
-              <p className="font-mono text-[11px] text-ink-400 uppercase tracking-widest mb-3 text-center">Open in your UPI app</p>
-              <div className="grid grid-cols-4 gap-1.5">
-                {UPI_APPS.map((app) => (
-                  <button
-                    key={app.id}
-                    onClick={() => handleAppPay(app.id)}
-                    className="flex flex-col items-center gap-1.5 bg-cream-50 border border-cream-200 rounded-2xl py-3 px-1 hover:-translate-y-1 hover:shadow-md transition-all duration-200"
-                  >
-                    <div className={clsx("w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold", app.color)}>
-                      {app.id === "gpay" && <span className="text-blue-600">G</span>}
-                      {app.id === "phonepe" && <span className="text-white">P</span>}
-                      {app.id === "paytm" && <span className="text-white text-sm">Pa</span>}
-                      {app.id === "bhim" && <span className="text-white">B</span>}
+                <div className="bg-ink-900 px-6 pt-6 pb-5">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h2 className="font-display text-2xl font-bold text-cream-50">
+                        Support {PAYEE_NAME.split(" ")[0]} ₹
+                      </h2>
+                      <p className="font-mono text-xs text-ink-400 mt-1">Instant UPI · Zero fees · Secure</p>
                     </div>
-                    <span className="text-[11px] font-semibold text-ink-600">{app.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
+                    <button
+                      onClick={() => setOpen(false)}
+                      className="w-8 h-8 rounded-full bg-ink-800 hover:bg-citrus-400 hover:text-ink-900 text-cream-50 flex items-center justify-center text-sm transition-colors"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
 
-            {/* Divider */}
-            <div className="flex items-center gap-3">
-              <div className="flex-1 h-px bg-cream-200" />
-              <span className="font-mono text-[11px] text-ink-400">or scan QR</span>
-              <div className="flex-1 h-px bg-cream-200" />
-            </div>
+                {/* Body */}
+                <div className="px-4 py-5 sm:px-6 sm:py-5 space-y-4 max-h-[75vh] overflow-y-auto">
 
-            {/* QR Code */}
-            <div className="flex flex-col items-center">
-              <div ref={qrRef} className="bg-white rounded-2xl p-3 border border-cream-200">
-                <canvas width={148} height={148} />
-              </div>
-              <p className="font-mono text-[11px] text-ink-400 mt-2">Scan with any UPI app</p>
-            </div>
+                  {/* UPI ID */}
+                  <div className="bg-ink-900 rounded-2xl px-4 py-3 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-citrus-400 flex items-center justify-center font-display font-bold text-sm text-ink-900 flex-shrink-0">
+                        {PAYEE_NAME.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+                      </div>
+                      <div>
+                        <p className="font-mono text-[10px] text-ink-400 uppercase tracking-wider">UPI ID</p>
+                        <p className="text-cream-50 font-semibold text-sm mt-0.5">{UPI_ID}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={copyUPI}
+                      className="font-mono text-[11px] bg-ink-800 hover:bg-citrus-400 hover:text-ink-900 text-citrus-400 px-3 py-1.5 rounded-lg transition-colors"
+                    >
+                      Copy
+                    </button>
+                  </div>
 
-            {/* Security */}
-            <div className="flex items-center gap-2 bg-green-50 rounded-xl px-4 py-2.5">
-              <span className="text-sm">🔒</span>
-              <span className="font-mono text-[11px] text-green-700">
-                100% secure · Powered by NPCI UPI · No card details needed
-              </span>
-            </div>
-          </div>
+                  {/* Amount presets */}
+                  <div>
+                    <p className="font-mono text-[11px] text-ink-400 uppercase tracking-widest mb-2">Choose amount</p>
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {PRESETS.map((p) => (
+                        <button
+                          key={p}
+                          onClick={() => handlePreset(p)}
+                          className={clsx(
+                            "px-3.5 py-1.5 rounded-xl text-sm font-semibold border-2 transition-all",
+                            preset === p
+                              ? "bg-citrus-400 border-citrus-400 text-ink-900"
+                              : "bg-cream-50 border-cream-200 text-ink-600 hover:border-citrus-400"
+                          )}
+                        >
+                          ₹{p}
+                        </button>
+                      ))}
+                    </div>
+                    {/* Custom amount */}
+                    <div className="relative">
+                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xl font-bold text-ink-900">₹</span>
+                      <input
+                        type="number"
+                        min="1"
+                        value={amount}
+                        onChange={(e) => { setAmount(e.target.value); setPreset(null); }}
+                        placeholder="Enter custom amount"
+                        className="w-full bg-cream-50 border-2 border-cream-200 focus:border-citrus-400 rounded-xl pl-8 pr-4 py-3 text-lg font-bold text-ink-900 outline-none transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Note */}
+                  <input
+                    type="text"
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
+                    placeholder="Add a note (optional)"
+                    className="w-full bg-cream-50 border border-cream-200 focus:border-citrus-400 rounded-xl px-4 py-2.5 text-sm text-ink-900 outline-none transition-colors"
+                  />
+
+                  {/* UPI Apps */}
+                  <div>
+                    <p className="font-mono text-[11px] text-ink-400 uppercase tracking-widest mb-3 text-center">Open in your UPI app</p>
+                    <div className="grid grid-cols-4 gap-1.5">
+                      {UPI_APPS.map((app) => (
+                        <button
+                          key={app.id}
+                          onClick={() => handleAppPay(app.id)}
+                          className="flex flex-col items-center gap-1.5 bg-cream-50 border border-cream-200 rounded-2xl py-3 px-1 hover:-translate-y-1 hover:shadow-md transition-all duration-200"
+                        >
+                          <div className={clsx("w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold", app.color)}>
+                            {app.id === "gpay" && <span className="text-blue-600">G</span>}
+                            {app.id === "phonepe" && <span className="text-white">P</span>}
+                            {app.id === "paytm" && <span className="text-white text-sm">Pa</span>}
+                            {app.id === "bhim" && <span className="text-white">B</span>}
+                          </div>
+                          <span className="text-[11px] font-semibold text-ink-600">{app.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 h-px bg-cream-200" />
+                    <span className="font-mono text-[11px] text-ink-400">or scan QR</span>
+                    <div className="flex-1 h-px bg-cream-200" />
+                  </div>
+
+                  {/* QR Code */}
+                  <div className="flex flex-col items-center">
+                    <div ref={qrRef} className="bg-white rounded-2xl p-3 border border-cream-200">
+                      <img
+                        src="/qr-code.png"
+                        alt="UPI QR Code"
+                        width={148}
+                        height={148}
+                        className="object-contain"
+                      />
+                    </div>
+                    <p className="font-mono text-[11px] text-ink-400 mt-2">Scan with any UPI app</p>
+                  </div>
+
+                  {/* Security */}
+                  <div className="flex items-center gap-2 bg-green-50 rounded-xl px-4 py-2.5">
+                    <span className="text-sm">🔒</span>
+                    <span className="font-mono text-[11px] text-green-700">
+                      100% secure · Powered by NPCI UPI · No card details needed
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
