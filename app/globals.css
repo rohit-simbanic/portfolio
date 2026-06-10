@@ -19,10 +19,10 @@
   --modal-bg: #141414;
   --modal-footer-bg: rgba(28, 28, 28, 0.95);
 
-  /* Default Citrus Accent Colors (Orange) */
-  --citrus-400: 244, 160, 36;
-  --citrus-500: 232, 137, 10;
-  --citrus-600: 196, 114, 8;
+  /* Default Amethyst Accent Colors (Purple) */
+  --citrus-400: 167, 139, 250;
+  --citrus-500: 139, 92, 246;
+  --citrus-600: 109, 40, 217;
 }
 
 html.light {
@@ -62,9 +62,11 @@ body {
   a, button { cursor: none; }
 }
 
-/* Restore normal cursor when code viewer is open */
+/* Restore normal cursor when code viewer or modal is open */
 html.code-viewer-open,
-html.code-viewer-open body {
+html.code-viewer-open body,
+html.modal-open,
+html.modal-open body {
   cursor: default !important;
 }
 html.code-viewer-open a,
@@ -72,7 +74,13 @@ html.code-viewer-open button,
 html.code-viewer-open [role="button"],
 html.code-viewer-open a *,
 html.code-viewer-open button *,
-html.code-viewer-open [role="button"] * {
+html.code-viewer-open [role="button"] *,
+html.modal-open a,
+html.modal-open button,
+html.modal-open [role="button"],
+html.modal-open a *,
+html.modal-open button *,
+html.modal-open [role="button"] * {
   cursor: pointer !important;
 }
 

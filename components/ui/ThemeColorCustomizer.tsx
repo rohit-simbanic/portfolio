@@ -65,7 +65,7 @@ export default function ThemeColorCustomizer() {
 
   useEffect(() => {
     setMounted(true);
-    const savedKey = localStorage.getItem("accent-theme-key") || "citrus";
+    const savedKey = localStorage.getItem("accent-theme-key") || "amethyst";
     setSelected(savedKey);
 
     // Close on click outside

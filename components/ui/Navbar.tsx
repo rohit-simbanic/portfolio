@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { clsx } from "clsx";
 import PayMeButton from "./PayMeButton";
+import { usePathname } from "next/navigation";
 
 const links = [
   { label: "About", href: "#about" },
@@ -16,6 +17,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const isAdminPage = pathname?.startsWith("/admin");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -85,7 +88,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
-          {links.map((link) => (
+          {!isAdminPage && links.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -142,7 +145,7 @@ export default function Navbar() {
         )}
       >
         <nav className="px-4 sm:px-6 pt-4 pb-6 flex flex-col gap-4 bg-cream-100/95 backdrop-blur-md border-b border-cream-200">
-          {links.map((link) => (
+          {!isAdminPage && links.map((link) => (
             <a
               key={link.href}
               href={link.href}

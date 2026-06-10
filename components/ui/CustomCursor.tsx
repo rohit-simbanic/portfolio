@@ -27,11 +27,13 @@ export default function CustomCursor() {
 
     const animate = () => {
       const isViewerOpen = document.documentElement.classList.contains("code-viewer-open");
+      const isModalOpen = document.documentElement.classList.contains("modal-open");
+      const shouldHide = isViewerOpen || isModalOpen;
       if (dotRef.current) {
-        dotRef.current.style.display = isViewerOpen ? "none" : "block";
+        dotRef.current.style.display = shouldHide ? "none" : "block";
       }
       if (ringRef.current) {
-        ringRef.current.style.display = isViewerOpen ? "none" : "block";
+        ringRef.current.style.display = shouldHide ? "none" : "block";
       }
 
       ringX += (mouseX - ringX) * 0.12;

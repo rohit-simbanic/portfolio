@@ -54,11 +54,17 @@ export default function PayMeButton() {
     setMounted(true);
   }, []);
 
-  // Lock body scroll when modal open
+  // Lock body scroll and toggle custom cursor class
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      document.documentElement.classList.add("modal-open");
+    } else {
+      document.documentElement.classList.remove("modal-open");
+    }
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.classList.remove("modal-open");
     };
   }, [open]);
 
